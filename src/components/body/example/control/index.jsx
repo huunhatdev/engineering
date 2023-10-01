@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import IconControl from '../../../../assets/icons/IconControl';
 import Slider from 'react-slick';
+import IconArrowButton from '../../../../assets/icons/IconArrowButton';
 
 const Control = () => {
     const list = [
@@ -8,37 +9,44 @@ const Control = () => {
             id: 'power',
             text: 'Morality Power',
             icon: <IconControl isPower />,
-            src: 'images/conversation/control/power.png'
+            src: 'images/conversation/control/power.png',
+            svg: 'images/conversation/bot_gif/Morality-Power.png'
         },
         {
             id: 'emotion',
             text: 'Emotion',
             icon: <IconControl isEmotion />,
-            src: 'images/conversation/control/emotion1.png'
+            src: 'images/conversation/control/emotion1.png',
+            sub: 'images/conversation/control/emotion2.png',
+            svg: 'images/conversation/bot_gif/Emotion.png'
         },
         {
             id: 'harmless',
             text: 'Harmlessness',
             icon: <IconControl isHamless />,
-            src: 'images/conversation/control/harmless.png'
+            src: 'images/conversation/control/harmless.png',
+            svg: 'images/conversation/bot_gif/Harmlessness.png'
         },
         {
             id: 'fairless',
             text: 'Fairness',
             icon: <IconControl isFairness />,
-            src: 'images/conversation/control/fairness.png'
+            src: 'images/conversation/control/fairness.png',
+            svg: 'images/conversation/bot_gif/Fairness.png'
         },
         {
             id: 'editing',
             text: 'Fact Editing',
             icon: <IconControl isEditing />,
-            src: 'images/conversation/control/editing.png'
+            src: 'images/conversation/control/editing.png',
+            svg: 'images/conversation/bot_gif/Editing.png'
         },
         {
             id: 'memory',
             text: 'Memorization',
             icon: <IconControl />,
-            src: 'images/conversation/control/memorization.png'
+            src: 'images/conversation/control/memorization.png',
+            svg: 'images/conversation/bot_gif/Memo.png'
         }
     ];
 
@@ -52,10 +60,15 @@ const Control = () => {
     };
 
     const [value, setValue] = useState(list[0]);
+    const [isNext, setIsNext] = useState(true);
+
+    const _handleClickNext = () => {
+        setIsNext((prev) => !prev);
+    };
 
     const _renderItem = () => {
         return list.map((item) => {
-            const { id, text, icon } = item;
+            const { id, text, svg, sub } = item;
             return (
                 <div>
                     <div
@@ -64,7 +77,7 @@ const Control = () => {
                         onClick={() => _handleClick(item)}
                     >
                         <p>{text}</p>
-                        <div className="icon">{icon}</div>
+                        <img className="icon-svg" src={svg} alt="" />
                     </div>
                 </div>
             );
@@ -88,7 +101,12 @@ const Control = () => {
             <div className="control__items box-item-control">{_renderItem()}</div>
             {_renderSlick()}
             <div className="image_conversation">
-                <img src={value.src} alt={value.text} />
+                <img src={!!value.sub && isNext ? value.sub : value.src} alt={value.text} />
+                {!!value?.sub && (
+                    <div className="btn-prev" onClick={_handleClickNext}>
+                        <IconArrowButton isPrev={!isNext} />
+                    </div>
+                )}
             </div>
         </div>
     );
