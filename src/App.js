@@ -1,25 +1,20 @@
-import logo from './logo.svg';
-import './App.css';
+import IconControl from './assets/icons/IconControl';
+import './assets/style/index.scss';
+import BodyPage from './components/body';
+import HeaderPage from './components/header';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+	return (
+		<div className='App'>
+			<div className='page-container'>
+				<h2 className='page__header'>Representation Engineering</h2>
+				<hr />
+				<HeaderPage />
+				<BodyPage />
+				<IconControl isPower />
+			</div>
+		</div>
+	);
 }
 
 export default App;
