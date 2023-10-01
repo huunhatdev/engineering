@@ -3,12 +3,14 @@ import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import ButtonToggle from '../../button/ButtonToggle';
+import IconArrowButton from '../../../assets/icons/IconArrowButton';
 
 const Slick = () => {
+    const refSlick = useRef(null);
+
     const settings = {
         dots: true,
         infinite: true,
-        // fade: true,
         speed: 500,
         slidesToShow: 1,
         slidesToScroll: 1
@@ -51,7 +53,19 @@ const Slick = () => {
         });
     };
 
-    return <Slider {...settings}>{_renderItems()}</Slider>;
+    return (
+        <div className="wrapper-slick">
+            <div className="btn-slick prev" onClick={() => refSlick.current.slickPrev()}>
+                <IconArrowButton isPrev />
+            </div>
+            <Slider ref={refSlick} {...settings} arrows={false}>
+                {_renderItems()}
+            </Slider>
+            <div className="btn-slick next" onClick={() => refSlick.current.slickNext()}>
+                <IconArrowButton />
+            </div>
+        </div>
+    );
 };
 
 export default Slick;
